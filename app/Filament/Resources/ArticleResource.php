@@ -32,10 +32,11 @@ class ArticleResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->recordUrl(null)
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                RelationWithModalAction::make('comments.title')
+                Tables\Columns\TextColumn::make('comments.title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -63,7 +64,7 @@ class ArticleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\CommentsRelationManager::class,
         ];
     }
 
